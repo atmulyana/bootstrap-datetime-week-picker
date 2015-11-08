@@ -1,4 +1,4 @@
-/*****
+/*! ****
 JsSimpleDateFormat v1.0 (20080509)
 This library is for formatting and parsing date time
 
