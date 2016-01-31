@@ -1,6 +1,6 @@
 /*! =========================================================
- * bootstrap-datepicker.js v2.0 (https://github.com/atmulyana/bootstrap-datepicker)
- * Developed by AT Mulyana in 2015
+ * bootstrap-datepicker.js v2.0.0.1 (https://github.com/atmulyana/bootstrap-datepicker)
+ * Developed by AT Mulyana in 2015-2016
  * This project is the modification and improvement of another project
  * at https://github.com/eternicode/bootstrap-datepicker/
  * version 1.4.0 developed by Andrew Rowls + contributors. 
@@ -246,7 +246,12 @@
 			o.weekStart %= 7;
 			o.weekEnd = (o.weekStart + 6) % 7;
 
-			o.format = (typeof JsSimpleDateFormat == 'function') ? new JsSimpleDateFormat(o.format) : DPGlobal.parseFormat(o.format);
+			if (typeof JsSimpleDateFormat == 'function') {
+				o.format = new JsSimpleDateFormat(o.format, 'en', true);
+				o.format.isLenient = true;
+			} else {
+				o.format = DPGlobal.parseFormat(o.format);
+			}
 			if (o.startDate !== -Infinity){
 				if (!!o.startDate){
 					if (o.startDate instanceof Date)
@@ -2082,15 +2087,20 @@
 			if (date instanceof Date) return date;
 			var dt = DPGlobal._parseDateDiff(date);
 			if (dt) return dt;
-			if (typeof format == 'string')
-				format = new JsSimpleDateFormat(format);
+			if (typeof format == 'string') {
+				format = new JsSimpleDateFormat(format, 'en', true);
+				format.isLenient = true;
+			}
 			DPGlobal.setFormatSymbols(format, language);
 			return Datepicker.prototype._local_to_utc(format.parse(date));
 		};
 		DPGlobal.formatDate = function(date, format, language) {
 			if (!date) return '';
-			if (typeof format == 'string')
-				format = new JsSimpleDateFormat(format);
+			if (typeof format == 'string') {
+				format = new JsSimpleDateFormat(format, 'en', true);
+				format.isLenient = true;
+				format.isNetCompat = true;
+			}
 			DPGlobal.setFormatSymbols(format, language);
 			return format.format(Datepicker.prototype._utc_to_local(date));
 		};
