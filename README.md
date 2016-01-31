@@ -8,9 +8,8 @@ the modifications/extensions made in this project. There are three major feature
   <li><h4>Different date format</h4>
     <p>This project uses <code>JsSimpleDateFormat</code> library which is developed by me. This library has wider formatting
        pattern including time that will be used by time picker. The formatting pattern used by this
-       library is similar to that used by Java SimpleDateFormat class. If you use Java as the server-side code, it's a benefit
-       if we use the same format pattern between client and server. DateTime structure in .NET also uses similar pattern,
-       at least for part: year, month, day, hour, minute and second.
+       library is similar to that used by Java SimpleDateFormat class and also similar to .NET date time string format. If you
+       use Java or ASP.NET as the server-side code, it's a benefit if we use the same format pattern between client and server.
     </p>
     <p>To use <code>JsSimpleDateFormat</code>, you must include <code>JsSimpleDateFormat.js</code> script before
        <code>bootstrap-datepicker.js</code>, like below:
@@ -43,13 +42,8 @@ the modifications/extensions made in this project. There are three major feature
           },
           getWeekStart: function(weekString, options) {
             var df = new JsSimpleDateFormat("'Week-'W of MMM yyyy");
+            df.isLenient = true;
             var dt = df.parse(weekString), match = null;
-            if (dt == null && (match = /^Week-1 of (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d{4})$/i.exec(weekString))) {
-              var month = { jan:0, feb:1, mar:2, apr:3, may:4, jun:5, jul:6, aug:7, sep:8, oct:9, nov:10, dec:11 }[match[1].toLowerCase()];
-              var year = parseInt(match[2]);
-              dt = new Date(year, month, 1);
-              dt.setDate(dt.getDate() - dt.getDay());
-            }
             return dt;
           }
        }
