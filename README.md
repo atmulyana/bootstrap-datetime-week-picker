@@ -43,8 +43,7 @@ the modifications/extensions made in this project. There are three major feature
           getWeekStart: function(weekString, options) {
             var df = new JsSimpleDateFormat("'Week-'W of MMM yyyy");
             df.isLenient = true;
-            var dt = df.parse(weekString), match = null;
-            return dt;
+            return df.parse(weekString);
           }
        }
        </pre>
