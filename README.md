@@ -1,5 +1,5 @@
-# bootstrap-datepicker
-A datepicker widget that can be used on a web page. This project is the modification and improvement of another project at
+# bootstrap-datetime/week picker
+A datetime/week picker widget that can be used on a web page. This project is the modification and improvement of another project at
 https://github.com/eternicode/bootstrap-datepicker/ <br/>version 1.4.0 which is developed by Andrew Rowls + contributors.
 
 All documentation in http://bootstrap-datepicker.readthedocs.org/en/stable/ should apply to this project. Here will be explained
