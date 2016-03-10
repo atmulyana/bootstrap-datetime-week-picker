@@ -2,7 +2,7 @@
 JsSimpleDateFormat v2.0 (20160131)
 This library is for formatting and parsing date time
 
-Copyright (C) 2008 AT Mulyana (atmulyana@yahoo.com)
+Copyright (C) 2008, 2016 AT Mulyana (atmulyana@yahoo.com)
 
 This library is free software; you can redistribute it and/or modify it
 under the terms of the GNU Lesser General Public License version 3.0
