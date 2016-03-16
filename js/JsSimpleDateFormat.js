@@ -1,5 +1,5 @@
 /*! ****
-JsSimpleDateFormat v2.0 (20160131)
+JsSimpleDateFormat v2.0.1 (20160316)
 This library is for formatting and parsing date time
 
 Copyright (C) 2008, 2016 AT Mulyana (atmulyana@yahoo.com)
@@ -25,20 +25,21 @@ function JsDateFormatSymbols(sLocale) {
 	var oSymbols = JsDateFormatSymbols.__symbols__[sLocale];
 	for (p in oSymbols) {
 		var ar = [].concat(oSymbols[p]);
-		ar.map = {};
-		for (var i=0; i<ar.length; i++) ar.map[ar[i].toUpperCase()] = i;
+		this._setMap(ar);
 		this['_'+p] = ar;
 	}
 	if (this._amPmStrings) {
 		this._shortAmPmStrings = []
-		this._shortAmPmStrings.map = {};
-		for (var i=0; i<this._amPmStrings.length; i++) {
-			this._shortAmPmStrings.push(this._amPmStrings[i].charAt(0));
-			this._shortAmPmStrings.map[this._shortAmPmStrings[i].toUpperCase()] = i;
-		}
+		for (var i=0; i<this._amPmStrings.length; i++) this._shortAmPmStrings.push(this._amPmStrings[i].charAt(0));
+		this._setMap(this._shortAmPmStrings);
 	}
 }
 JsDateFormatSymbols.prototype = {
+_setMap: function(arSymbols) {
+	var map = {};
+	for (var i=0; i<arSymbols.length; i++) map[arSymbols[i].toUpperCase()] = i;
+	arSymbols.__map__ = map;
+},
 getAmPmStrings: function() {
 	return this._amPmStrings;
 },
@@ -61,21 +62,30 @@ getWeekdays: function() {
 	return this._weekdays;
 },
 setAmPmStrings: function(arAmPmStrings) {
+	this._setMap(arAmPmStrings);
 	this._amPmStrings = arAmPmStrings;
+	this._shortAmPmStrings = []
+	for (var i=0; i<this._amPmStrings.length; i++) this._shortAmPmStrings.push(this._amPmStrings[i].charAt(0));
+	this._setMap(this._shortAmPmStrings);
 },
 setEras: function(arEras) {
+	this._setMap(arEras);
 	this._eras = arEras;
 },
 setMonths: function(arMonths) {
+	this._setMap(arMonths);
 	return this._months = arMonths;
 },
 setShortMonths: function(arShortMonths) {
+	this._setMap(arShortMonths);
 	return this._shortMonths = arShortMonths;
 },
 setShortWeekdays: function(arShortWeekdays) {
+	this._setMap(arShortWeekdays);
 	return this._shortWeekdays = arShortWeekdays;
 },
 setWeekdays: function(arWeekdays) {
+	this._setMap(arWeekdays);
 	return this._weekdays = arWeekdays;
 }
 };
@@ -230,12 +240,12 @@ function JsSimpleDateFormat(sPattern,param,isNetCompat) {
 			var re = new RegExp("^("+arLong.join("|")+"|"+arShort.join("|")+")", "i");
 			if (!re.test(s)) return -1;
 			var sVal = RegExp.$1.toUpperCase();
-			if (arLong.map[sVal] !== undefined) {
-				this._parseVal = arLong.map[sVal];
+			if (arLong.__map__[sVal] !== undefined) {
+				this._parseVal = arLong.__map__[sVal];
 				return sVal.length;
 			}
-			if (arShort.map[sVal] !== undefined) {
-				this._parseVal = arShort.map[sVal];
+			if (arShort.__map__[sVal] !== undefined) {
+				this._parseVal = arShort.__map__[sVal];
 				return sVal.length;
 			}
 		},
@@ -421,10 +431,7 @@ function JsSimpleDateFormat(sPattern,param,isNetCompat) {
 		applyParseValue: function(oDate,oFields) {
 			var iVal = this.getParseValue(), iD = oDate.getDate();
 			oDate.setMonth(iVal);
-			while (oDate.getMonth() != iVal) {
-				oDate.setDate(--iD); //Find the last day of the month
-				oDate.setMonth(iVal);
-			}
+			if (iVal < oDate.getMonth()) oDate.setDate(0); //if the day exceeds the last day of the month then set it to the last day
 			return oDate;
 		},
 		getIndex: function() {
