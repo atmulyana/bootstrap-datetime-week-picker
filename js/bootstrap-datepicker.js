@@ -1101,7 +1101,7 @@
 				$dayRows.mouseout(function(e) {
 					if (!$.contains(e.delegateTarget, e.relatedTarget)) {
 						var $tr = $(e.delegateTarget);
-						$tr.css('background-color', 'transparent');
+						$tr.css('background-color', '');
 						var dt = This._getSelectedDate($tr.find('td.day:first'));
 						This._trigger('weekMouseLeave', dt);
 					}
