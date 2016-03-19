@@ -1,5 +1,5 @@
 /*! =========================================================
- * bootstrap-datepicker.js v2.0.0.1 (https://github.com/atmulyana/bootstrap-datetime-week-picker)
+ * bootstrap-datepicker.js v2.0.0.2 (https://github.com/atmulyana/bootstrap-datetime-week-picker)
  * Developed by AT Mulyana in 2015-2016
  * This project is the modification and improvement of another project
  * at https://github.com/eternicode/bootstrap-datepicker/
