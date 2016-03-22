@@ -1,5 +1,5 @@
 /*! =========================================================
- * bootstrap-datepicker.js v2.0.0.2 (https://github.com/atmulyana/bootstrap-datetime-week-picker)
+ * bootstrap-datepicker.js v2.0.1.0 (https://github.com/atmulyana/bootstrap-datetime-week-picker)
  * Developed by AT Mulyana in 2015-2016
  * This project is the modification and improvement of another project
  * at https://github.com/eternicode/bootstrap-datepicker/
@@ -335,12 +335,12 @@
 			
 			var defaultWeekPicker = {
 				separator: ' - ',
-				formatWeek: function(startWeekDate, options) {
+				formatWeek: function(startWeekDate, options, $datepicker) {
 					var endWeekDate = new Date(startWeekDate.getTime() + 6 * 864e5);
 					return DPGlobal.formatDate(startWeekDate, options.format, options.language) + options.weekPicker.separator
 						+ DPGlobal.formatDate(endWeekDate, options.format, options.language);
 				},
-				getWeekStart: function(weekString, options) {
+				getWeekStart: function(weekString, options, $datepicker) {
 					return DPGlobal.parseDate(weekString.split(options.weekPicker.separator)[0], options.format, options.language);
 				}
 			};
@@ -705,7 +705,7 @@
 		getFormattedDate: function(format){
 			if (this.o.weekPicker) {
 				var dates = [];
-				for (var i=6; i < this.dates.length; i+=7) dates.push(this.o.weekPicker.formatWeek(this.dates[i], this.o));
+				for (var i=6; i < this.dates.length; i+=7) dates.push(this.o.weekPicker.formatWeek(this.dates[i], this.o, this.element));
 				return dates.join(this.o.multidateSeparator);
 			} else {
 				if (format === undefined) format = this.o.format;
@@ -853,10 +853,10 @@
 				if (dates && this.o.multidate) {
 					dates = dates.split(this.o.multidateSeparator);
 					if (this.o.weekPicker) {
-						for (var i=0; i<dates.length; i++) dates[i] = this.o.weekPicker.getWeekStart(dates[i]);
+						for (var i=0; i<dates.length; i++) dates[i] = this.o.weekPicker.getWeekStart(dates[i], this.o, this.element);
 					}
 				} else {
-					if (dates && this.o.weekPicker) dates = this.o.weekPicker.getWeekStart(dates);
+					if (dates && this.o.weekPicker) dates = this.o.weekPicker.getWeekStart(dates, this.o, this.element);
 					dates = [dates];
 				}
 				delete this.element.data().date;

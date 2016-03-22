@@ -36,11 +36,11 @@ the modifications/extensions made in this project. There are three major feature
        the following code:
        <pre>
        weekPicker: {
-          formatWeek: function(startWeekDate, options) {
+          formatWeek: function(startWeekDate, options, $datepicker) {
             var df = new JsSimpleDateFormat("'Week-'W of MMM yyyy");
             return df.format(startWeekDate);
           },
-          getWeekStart: function(weekString, options) {
+          getWeekStart: function(weekString, options, $datepicker) {
             var df = new JsSimpleDateFormat("'Week-'W of MMM yyyy");
             df.isLenient = true;
             return df.parse(weekString);
