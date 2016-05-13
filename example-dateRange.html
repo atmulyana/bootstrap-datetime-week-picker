@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Datepicker for Bootstrap</title>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/bootstrap-datepicker3.css" rel="stylesheet">
+    <script src="./js/JsSimpleDateFormat.min.js"></script>
+    <script src="./js/bootstrap-datepicker.js"></script>
+</head>
+<body style="height: 500px; margin:10px">
+<form class="form-horizontal">
+    <div class="form-group">
+        <label class="control-label col-md-2">Daily</label>
+        <div class="col-md-6">
+					<div id="daily" class="input-group input-daterange">
+						<input name="daily.StartDate" type="text" class="form-control" value="">
+						<span class="input-group-addon">to</span>
+						<input name="daily.EndDate" type="text" class="form-control" value="">
+					</div>
+        </div>
+    </div>
+		<div class="form-group">
+        <label class="control-label col-md-2">Weekly</label>
+        <div class="col-md-6">
+					<div id="weekly" class="input-group input-daterange">
+						<input name="weekly.StartDate" type="text" class="form-control" value="">
+						<span class="input-group-addon">to</span>
+						<input name="weekly.EndDate" type="text" class="form-control" value="">
+					</div>
+        </div>
+    </div>
+		<div class="form-group">
+        <label class="control-label col-md-2">Disable If Exceeds Range</label>
+        <div class="col-md-6"><input id="disableIfExceedRange" type="checkbox" /></div>
+    </div>
+
+    <script>
+    var $daily, $weekly, weekFormatter;
+		
+		function setDateRangePicker() {
+			if ($daily.data('datepicker')) {
+				$.each($daily.data('datepicker').pickers, function(_, picker) {
+					picker.clearDates();
+				});
+				$daily.datepicker("remove");
+			}
+			$daily.datepicker({
+				rtl: false,
+				autoclose: true,
+				clearBtn: true,
+				format: "d MMMM yyyy",
+				disableIfExceedRange: $('#disableIfExceedRange').prop('checked')
+			});
+			
+			if ($weekly.data('datepicker')) {
+				$.each($weekly.data('datepicker').pickers, function(_, picker) {
+					picker.clearDates();
+				});
+				$weekly.datepicker("remove");
+			}
+			$weekly.datepicker({
+				rtl: false,
+				autoclose: true,
+				clearBtn: true,
+				format: "d MMMM yyyy",
+				disableIfExceedRange: $('#disableIfExceedRange').prop('checked'),
+				weekPicker: {
+					formatWeek: function(startWeekDate, options, $datepicker) {
+						return weekFormatter.format(startWeekDate);
+					},
+					getWeekStart: function(weekString, options, $datepicker) {
+						return weekFormatter.parse(weekString);
+					}
+				}
+			})
+		}
+    
+    $(function() {
+				$daily = $('#daily');
+				$weekly = $('#weekly');
+				weekFormatter = new JsSimpleDateFormat("'Week-'W' of month 'MMMM yyyy", 'en', true);
+        weekFormatter.isLenient = true;
+				setDateRangePicker();
+				$('#disableIfExceedRange').change(setDateRangePicker);
+    });
+    </script>
+</form>
+</body>
+</html>
