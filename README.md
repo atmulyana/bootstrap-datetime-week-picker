@@ -75,4 +75,8 @@ the modifications/extensions made in this project. There are three major feature
       </ul>
     </p>
   </li>
+  <li><h4>Different Date Range Behavior</h4>
+    <p>If either side (start or end date) is blank (null), it means infinite for that side. Range visualization is also available for month/year view. There is a new option which applies to range, <code>disableIfExceedRange</code>. If this option is set to <code>true</code> (by default it's <code>false</code>) then the start date cannot be set more than the end date and the end date cannot be set less than the start date. If this option is <code>false</code> then if the start date is set more than the end date, it will move the end date to the same date as the start date.
+    </p>
+  </li>
 </ul>
