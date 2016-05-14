@@ -270,6 +270,9 @@ fieldset[disabled] .datepicker table tr .range.focus {
   background: #eeeeee;
   color: #777777;
 }
+.datepicker table tr .range.disabled {
+  background: #f8f8f8;
+}
 .datepicker table tr .range.highlighted {
   color: #000000;
   background-color: #e4eef3;

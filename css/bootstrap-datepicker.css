@@ -185,6 +185,9 @@
   -moz-border-radius: 0;
   border-radius: 0;
 }
+.datepicker table tr .range.disabled {
+	background: #f8f8f8;
+}
 .datepicker table tr .range.today,
 .datepicker table tr .range.today:hover,
 .datepicker table tr .range.today.disabled,
